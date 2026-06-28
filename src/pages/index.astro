@@ -1,17 +1,113 @@
 ---
+import { Image } from "astro:assets";
+import "../styles/global.scss";
 
+const verticalImages = Object.values(
+  import.meta.glob(
+    "/src/assets/images/vertical/*.{jpg,jpeg,png,webp,JPG,JPEG,PNG,WEBP}",
+    { eager: true },
+  ),
+);
+const horizontalImages = Object.values(
+  import.meta.glob(
+    "/src/assets/images/horizontal/*.{jpg,jpeg,png,webp,JPG,JPEG,PNG,WEBP}",
+    { eager: true },
+  ),
+);
+const blurImages = Object.values(
+  import.meta.glob(
+    "/src/assets/images/blur/*.{jpg,jpeg,png,webp,JPG,JPEG,PNG,WEBP}",
+    { eager: true },
+  ),
+);
 ---
 
+<!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mizhi Museum</title>
+  </head>
+  <body>
+
+    <header class="museum-header">
+      <h1>Mizhi Museum</h1>
+      <p>the world through my eyes</p>
+    </header>
+
+    <main class="gallery-container">
+      <section class="gallery-section vertical-section">
+        <h2>Verticals</h2>
+        <div class="grid">
+          {
+            verticalImages.map((img: any) => (
+              <div class="image-card">
+                <Image
+                  src={img.default}
+                  alt="Portrait photograph"
+                  format="webp"
+                  quality="mid"
+                />
+              </div>
+            ))
+          }
+        </div>
+      </section>
+
+      <section class="gallery-section horizontal-section">
+        <h2>Horizontals</h2>
+        <div class="grid">
+          {
+            horizontalImages.map((img: any) => (
+              <div class="image-card">
+                <Image
+                  src={img.default}
+                  alt="Landscape photograph"
+                  format="webp"
+                  quality="mid"
+                />
+              </div>
+            ))
+          }
+        </div>
+      </section>
+
+      <section class="gallery-section blur-section">
+        <h2>Blurs</h2>
+        <div class="grid">
+          {
+            blurImages.map((img: any) => (
+              <div class="image-card">
+                <Image
+                  src={img.default}
+                  alt="Abstract blur photograph"
+                  format="webp"
+                  quality="mid"
+                />
+              </div>
+            ))
+          }
+        </div>
+      </section>
+    </main>
+
+    <footer class="museum-footer">
+      <div class="footer-content">
+        <p>&copy; 2026 Shreya Kakachery | Mizhi Museum</p>
+        <div class="social-links">
+          <a
+            href="https://github.com/shreyakakachery"
+            target="_blank"
+            rel="noopener noreferrer">GitHub</a
+          >
+          <a
+            href="https://linkedin.com/in/shreyakakachery"
+            target="_blank"
+            rel="noopener noreferrer">LinkedIn</a
+          >
+        </div>
+      </div>
+    </footer>
+  </body>
 </html>
